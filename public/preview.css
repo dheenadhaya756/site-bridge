@@ -1,0 +1,31 @@
+:root{--blue:#2238f5;--ink:#0d0f1a;--muted:#6b7080;--line:#e7e8ee}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font:14px/1.5 "Inter Tight",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff}
+body{display:flex;flex-direction:column}
+.bar{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:#fff}
+.brand{display:flex;align-items:center;gap:9px;font-weight:500;color:var(--ink);text-decoration:none;font-size:15px;letter-spacing:-.01em}
+.mark{display:grid}
+.wm{letter-spacing:-.015em;font-weight:500}
+.wm b{font-weight:500}
+.wm sup{font-size:.55em;margin-left:1px;vertical-align:.7em;line-height:0}
+.nav-btns{display:flex;gap:2px}
+.nav-btns button{border:0;background:transparent;color:var(--muted);width:30px;height:30px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
+.nav-btns button:hover{background:#f2f3f7;color:var(--ink)}
+.addr{flex:1;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:0 14px;height:32px;color:#178a5a;min-width:0;max-width:620px}
+.addr input{flex:1;border:0;outline:0;font:inherit;font-size:13px;color:#3a3f50;background:transparent;min-width:0}
+.live{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);white-space:nowrap;margin-left:auto}
+.live i{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px #22c55e26}
+.pill-btn{display:inline-flex;align-items:center;gap:10px;height:32px;padding:0 4px 0 14px;border-radius:999px;background:var(--blue);color:#fff;text-decoration:none;font-size:12.5px;font-weight:500;white-space:nowrap}
+.pill-btn .arr{width:24px;height:24px;border-radius:50%;background:#fff;color:var(--blue);display:grid;place-items:center;font-size:13px}
+.frame-wrap{position:relative;flex:1}
+iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+.loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#fff;color:var(--muted);transition:opacity .25s}
+.loading.hide{opacity:0;pointer-events:none}
+.spinner{width:28px;height:28px;border:2px solid #e3e6f5;border-top-color:var(--blue);border-radius:50%;animation:s .8s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 14px;border-radius:999px;font-size:13px}
+@media (max-width:760px){.live,.brand,.pill-btn{display:none}}
+
+/* Back to the site's results on Site Bridge */
+.back-btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px 0 8px;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;font-size:12.5px;font-weight:500;white-space:nowrap;background:#fff}
+.back-btn:hover{border-color:var(--blue);color:var(--blue)}

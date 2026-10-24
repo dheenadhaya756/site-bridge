@@ -1,0 +1,23 @@
+{
+  "name": "site-bridge",
+  "version": "0.1.0",
+  "description": "Turn any website into an agentic website: crawl, build an MCP server, and preview a live on-site AI agent.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20.12"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.8.2",
+    "@vercel/functions": "^3.10.3",
+    "cheerio": "^1.0.0",
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.16",
+    "playwright-core": "^1.48.2",
+    "postgres": "^3.4.5"
+  }
+}

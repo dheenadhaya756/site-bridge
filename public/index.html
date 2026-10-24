@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Site Bridge</title>
+  <meta name="description" content="Turn any website into an agentic website: an MCP server plus a live AI agent that can browse the site for your visitors.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/app.css">
+  <link rel="stylesheet" href="/landing.css">
+</head>
+<body class="lx">
+  <!-- Announcement bar -->
+  <a class="lx-announce" href="#start"><span>New</span> MCP Server + Live Agent in One Scan <span aria-hidden="true">→</span></a>
+
+  <div class="lx-frame">
+    <header class="nav lx-nav">
+      <a class="logo" href="/"><span class="logo-mark"><svg class="sb-mark" viewBox="0 0 22 16" width="22" height="16" aria-hidden="true"><path d="M7.2 1h13.6l-3.2 5.6H4z" fill="#2238f5"/><path d="M4.4 9.4H18l-3.2 5.6H1.2z" fill="#2238f5"/></svg></span><span class="wm">Site Bridge<sup>°</sup></span></a>
+      <nav>
+        <a href="#how">How It Works</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#plans">Plans</a>
+        <a href="#recent-wrap">Recent Sites</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="lx-nav-cta">
+        <a class="lx-btn lx-btn-line" href="#contact" data-contact>Talk to Us</a>
+        <a class="lx-btn lx-btn-dark" href="#start">Try It Free</a>
+      </div>
+    </header>
+
+    <main class="lx-main">
+      <!-- Hero -->
+      <section id="start" class="lx-hero">
+        <div class="lx-hero-top">
+          <div class="lx-hero-intro">
+            <div class="lx-badge"><span class="lx-badge-sq" aria-hidden="true">0</span>Zero code · Nothing to install to try it</div>
+            <h1>Turn Any Website<br>into an AI Agent</h1>
+            <p class="lx-lead">Paste your link and we read every public page, build an <b>MCP</b> server for it, and put an AI agent on your site that answers visitors and drives the UI for them.</p>
+            <div class="lx-hero-btns">
+              <a class="lx-btn lx-btn-line" href="#contact" data-contact>Talk to Us</a>
+              <a class="lx-btn lx-btn-dark" href="#build-card"><span aria-hidden="true">→</span> Try It Free</a>
+            </div>
+          </div>
+          <div class="lx-hero-art" aria-hidden="true">
+            <div class="lx-demo">
+              <div class="lx-demo-bar"><i></i><i></i><i></i><span>yourwebsite.com</span></div>
+              <div class="lx-demo-body">
+                <div class="lx-demo-site">
+                  <div class="lx-demo-nav"><b></b><span></span><span></span><span class="lx-demo-target">Pricing</span></div>
+                  <div class="lx-demo-h"></div><div class="lx-demo-h short"></div>
+                  <div class="lx-demo-p"></div><div class="lx-demo-p"></div><div class="lx-demo-p half"></div>
+                  <div class="lx-demo-cards"><span></span><span></span><span></span></div>
+                  <svg class="lx-demo-cursor" viewBox="0 0 16 16" width="18" height="18"><path d="M2 1l11 6.5-4.6 1.2L6.3 13z" fill="#2238f5" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="lx-demo-panel">
+                  <div class="lx-demo-head"><span class="lx-demo-orb"></span><div><b>AI Agent</b><small>Online</small></div></div>
+                  <div class="lx-demo-msg user">Show me your pricing</div>
+                  <div class="lx-demo-step">Opening /pricing</div>
+                  <div class="lx-demo-msg agent">Here are the plans. I've highlighted Pricing for you.</div>
+                  <div class="lx-demo-input">Ask me anything…</div>
+                </div>
+              </div>
+            </div>
+            <div class="lx-demo-chips"><span>MCP server</span><span>llms.txt</span><span>On-site agent</span></div>
+          </div>
+        </div>
+
+        <div class="lx-visual">
+          <canvas class="lx-pixels" data-seed="7" aria-hidden="true"></canvas>
+          <form id="build" class="lx-card" autocomplete="off">
+            <div class="lx-card-label" id="build-card"><span>Paste your link</span><span class="lx-card-note">~10 seconds to learn a 20-page website</span></div>
+            <div class="lx-card-box">
+              <input id="url" type="text" inputmode="url" placeholder="yourwebsite.com" spellcheck="false" required aria-label="Website address">
+              <div class="lx-card-foot">
+                <span id="ai-status" class="status lx-chip">Checking AI…</span>
+                <button type="submit" class="lx-send" aria-label="Build Agent" title="Build Agent"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+              </div>
+            </div>
+            <p class="lx-card-price" id="price-note" hidden></p>
+          </form>
+        </div>
+
+        <div class="lx-logos" aria-label="Works with the AI tools your customers use">
+          <span class="lx-logos-cap">Works with the AI tools your customers use</span>
+          <span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1v14M1 8h14M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Claude</span>
+          <span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2" fill="currentColor"/></svg>ChatGPT</span>
+          <span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 1l6 3.5v7L8 15l-6-3.5v-7z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Cursor</span>
+          <span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M11 2l3 1.5v9L11 14 4 8z M11 2v12M2 5.5l2 2.5-2 2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>VS Code</span>
+          <span class="g"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8h10M8 3v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Any MCP client</span>
+          <span class="lx-logos-checks"><i>Site Crawler</i><i>MCP Server</i><i>On-site Agent</i></span>
+        </div>
+      </section>
+
+      <!-- Live scan progress and results (filled in by app.js) -->
+      <div class="lx-runtime">
+        <section id="progress" class="panel progress" hidden>
+          <div class="progress-head">
+            <div>
+              <h2 id="p-title">Building your agent…</h2>
+              <p id="p-sub" class="muted"></p>
+            </div>
+            <span id="p-count" class="count"></span>
+          </div>
+          <div class="bar"><div id="p-bar"></div></div>
+          <ol class="stages">
+            <li data-stage="crawl"><span class="dot"></span>Crawling pages</li>
+            <li data-stage="understand"><span class="dot"></span>Understanding the site</li>
+            <li data-stage="tools"><span class="dot"></span>Building MCP tools &amp; agent</li>
+            <li data-stage="done"><span class="dot"></span>Ready</li>
+          </ol>
+          <ul id="p-log" class="log"></ul>
+        </section>
+        <section id="result" class="result" hidden></section>
+      </div>
+
+      <!-- Dark band: the builder and its numbers -->
+      <section class="lx-dark">
+        <div class="lx-eyebrow lx-eyebrow-dark"><i></i>#1 Website-to-Agent Builder</div>
+        <h2 class="lx-dark-title">One link in, a working AI agent<br>and MCP server out. <span>No code<br>and no setup.</span></h2>
+        <div class="lx-dark-grid">
+          <article class="lx-dark-card">
+            <svg class="lx-iso" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 22l20-10 20 10-20 10z" fill="#3d5afe"/><path d="M12 22v18l20 10V32z" fill="#1a237e"/><path d="M52 22v18L32 50V32z" fill="#2238f5"/><path d="M22 27l10 5 10-5" fill="none" stroke="#9fb0ff" stroke-width="1.5"/></svg>
+            <div><b>24/7</b><p>Visitors answered and guided on your site</p></div>
+          </article>
+          <article class="lx-dark-card">
+            <svg class="lx-iso" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 24l18-9 18 9-18 9z" fill="#2238f5"/><path d="M14 24v14l18 9V33z" fill="#151a6b"/><path d="M50 24v14l-18 9V33z" fill="#3d5afe"/><path d="M20 34l12 6M20 30l12 6" stroke="#9fb0ff" stroke-width="1.5"/></svg>
+            <div><b data-count="12" data-suf="+">12+</b><p>MCP tools generated for every website</p></div>
+          </article>
+          <article class="lx-dark-card">
+            <svg class="lx-iso" viewBox="0 0 64 64" aria-hidden="true"><path d="M16 20l16-8 16 8-16 8z" fill="#3d5afe"/><path d="M16 20v22l16 8V28z" fill="#1a237e"/><path d="M48 20v22l-16 8V28z" fill="#2238f5"/><circle cx="40" cy="33" r="4" fill="none" stroke="#9fb0ff" stroke-width="1.5"/></svg>
+            <div><b data-count="60" data-pre="&lt;" data-suf="s">&lt;60s</b><p>From pasted link to live agent demo</p></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Capabilities -->
+      <section id="capabilities" class="lx-section">
+        <div class="lx-eyebrow"><i></i>Our Capabilities</div>
+        <h2 class="lx-big-title">Everything a website needs to become agent-ready, from reading every page to an assistant that operates the site for your visitors.</h2>
+
+        <div class="lx-feature">
+          <div class="lx-feature-text">
+            <div class="lx-eyebrow lx-eyebrow-left"><i></i>Deep Site Crawl</div>
+            <h3>Deep Site Crawl</h3>
+            <p>Reads robots.txt, sitemaps and every linked page. Pulls out text, forms, products, contact details and structured data.</p>
+            <a class="lx-link" href="#start">Read more <span>→</span></a>
+          </div>
+          <div class="lx-feature-art"><canvas class="lx-pixels" data-seed="3" aria-hidden="true"></canvas><div class="lx-mini"><div class="lx-mini-head">Deep Site Crawl</div><div class="lx-mini-lines"><i></i><i></i><i></i></div></div></div>
+        </div>
+
+        <div class="lx-feature lx-flip">
+          <div class="lx-feature-text">
+            <div class="lx-eyebrow lx-eyebrow-left"><i></i>MCP Server, Generated</div>
+            <h3>MCP Server, Generated</h3>
+            <p>Every site gets its own MCP endpoint with tools like search, pages, offerings and step-by-step tasks, ready for Claude, Cursor and any MCP client.</p>
+            <a class="lx-link" href="#start">Read more <span>→</span></a>
+          </div>
+          <div class="lx-feature-art"><canvas class="lx-pixels" data-seed="11" aria-hidden="true"></canvas><div class="lx-mini"><div class="lx-mini-head">MCP Server, Generated</div><div class="lx-mini-lines"><i></i><i></i><i></i></div></div></div>
+        </div>
+
+        <div class="lx-feature">
+          <div class="lx-feature-text">
+            <div class="lx-eyebrow lx-eyebrow-left"><i></i>Live On-site Agent</div>
+            <h3>Live On-site Agent</h3>
+            <p>The agent appears inside your website in your brand colours. It answers from your content, opens pages, highlights what matters and fills forms for visitors.</p>
+            <a class="lx-link" href="#start">Read more <span>→</span></a>
+          </div>
+          <div class="lx-feature-art"><canvas class="lx-pixels" data-seed="19" aria-hidden="true"></canvas><div class="lx-mini"><div class="lx-mini-head">Live On-site Agent</div><div class="lx-mini-lines"><i></i><i></i><i></i></div></div></div>
+        </div>
+
+        <div class="lx-feature lx-flip" id="embed">
+          <div class="lx-feature-text">
+            <div class="lx-eyebrow lx-eyebrow-left"><i></i>One-line Embed</div>
+            <h3>One-line Embed</h3>
+            <p>Preview it on your real site first, then paste a single script tag. The agent picks up your brand colour and font automatically.</p>
+            <a class="lx-link" href="#start">Read more <span>→</span></a>
+          </div>
+          <div class="lx-feature-art"><canvas class="lx-pixels" data-seed="27" aria-hidden="true"></canvas><div class="lx-mini"><div class="lx-mini-head">One-line Embed</div><div class="lx-mini-lines"><i></i><i></i><i></i></div></div></div>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section id="how" class="lx-section lx-top-line">
+        <div class="lx-eyebrow"><i></i>How It Works ?</div>
+        <h2 class="lx-big-title">From a plain link to an agent that sells for you.</h2>
+        <div class="lx-steps">
+          <div class="lx-step"><span>01</span><h3>Paste your link</h3><p>Drop in any public website. We read robots.txt and the sitemap, follow every page and collect the text, forms, products and contact details.</p></div>
+          <div class="lx-step"><span>02</span><h3>We build the brain</h3><p>Our AI turns the crawl into a knowledge pack: what you offer, prices, FAQs and the tasks visitors come to do. Your MCP server is generated from it.</p></div>
+          <div class="lx-step"><span>03</span><h3>See it live. Ship it.</h3><p>Open the live demo: your own website with the agent inside it, in your brand colour. Happy? Paste one script tag and it's on your site.</p></div>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section class="lx-dark lx-dark-results">
+        <div class="lx-eyebrow lx-eyebrow-dark"><i></i>Real Results, Real Impact</div>
+        <h2 class="lx-dark-title">What one scan gives a website, <span>measured on real crawls.</span></h2>
+        <div class="lx-dark-grid">
+          <article class="lx-dark-card lx-result"><b>1 link</b><div><h3>All It Takes</h3><p>Paste your website address. Pages, products, FAQs and contact details are learned automatically.</p></div></article>
+          <article class="lx-dark-card lx-result"><b>20+</b><div><h3>Pages Learned in Seconds</h3><p>Concurrent crawling with sitemap discovery, boilerplate removal and a searchable knowledge index.</p></div></article>
+          <article class="lx-dark-card lx-result"><b>100%</b><div><h3>Your Brand</h3><p>A fully white-label agent in your colours and font, under your name. Visitors only ever see your brand.</p></div></article>
+        </div>
+      </section>
+
+      <!-- Plans -->
+      <section id="plans" class="lx-section">
+        <div class="lx-eyebrow"><i></i>Plans Built Around You</div>
+        <h2 class="lx-big-title">Every business is different. Tell us about yours and we'll tailor a plan.</h2>
+        <div class="lx-plans">
+          <div class="lx-plan lx-plan-dark">
+            <h3>Business</h3><p>For companies agentifying their own website</p>
+            <ul><li>Full-site knowledge</li><li>MCP server &amp; llms.txt</li><li>White-label on-site agent</li><li>One-line embed</li></ul>
+            <a class="lx-btn lx-btn-light" href="#contact" data-contact>Talk to Us</a>
+          </div>
+          <div class="lx-plan">
+            <h3>Agency</h3><p>For teams delivering agents to many clients</p>
+            <ul><li>Everything in Business</li><li>Live demos for every prospect</li><li>Bulk scans &amp; re-scans</li><li>Custom preview domains</li></ul>
+            <a class="lx-btn lx-btn-dark" href="#contact" data-contact>Talk to Us</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="lx-section lx-top-line">
+        <div class="lx-eyebrow"><i></i>Frequently Asked Questions</div>
+        <h2 class="lx-big-title">Answers to common questions about Site Bridge.</h2>
+        <div class="lx-faq">
+          <details open><summary>What does "agentic website" mean?</summary><p>Your site gains an AI agent that understands all of its content and can operate the interface: open pages, highlight things, fill forms. AI tools can also connect to it through an MCP server.</p></details>
+          <details><summary>Do I need to change my website's code?</summary><p>No. Scanning and the live demo need nothing from you. Going live is a single script tag pasted before the closing body tag.</p></details>
+          <details><summary>Will the agent use my brand colours?</summary><p>Yes. It detects your primary button and link colour and your font from the page itself. You can also set a colour explicitly on the script tag.</p></details>
+          <details><summary>Can the agent submit forms or make purchases?</summary><p>It fills fields with details the visitor gives, then asks for confirmation before any submit, purchase or payment. In the demo, forms are never actually sent.</p></details>
+          <details><summary>What is the MCP server for?</summary><p>It lets AI assistants like Claude, Cursor and others search your site, read pages, list offerings and follow your tasks, so your business shows up correctly inside AI tools.</p></details>
+          <details><summary>Which websites work best?</summary><p>Public marketing, product, service and e-commerce sites. Pages behind logins aren't crawled, and very JavaScript-heavy sites need the optional headless browser.</p></details>
+        </div>
+      </section>
+
+      <!-- Recent sites -->
+      <section id="recent-wrap" class="lx-section lx-top-line recent-wrap" hidden>
+        <div class="lx-eyebrow"><i></i>Recent Sites</div>
+        <div id="recent" class="recent"></div>
+      </section>
+    </main>
+
+    <!-- Closing call to action and footer -->
+    <footer class="lx-foot">
+      <div class="lx-cta">
+        <canvas class="lx-pixels" data-seed="41" aria-hidden="true"></canvas>
+        <div class="lx-cta-card">
+          <h2>No Missed Visitors.<br>No Unanswered Questions.</h2>
+          <h3>Sell Smarter, on Every Page</h3>
+          <p>Your website, answering and guiding visitors around the clock, in your own brand.</p>
+          <a class="lx-btn lx-btn-dark" href="#contact" data-contact><span aria-hidden="true">→</span> Talk to Us</a>
+        </div>
+      </div>
+      <div class="lx-foot-grid" id="contact">
+        <div class="lx-foot-brand">
+          <a class="logo" href="/"><span class="logo-mark"><svg class="sb-mark" viewBox="0 0 22 16" width="22" height="16" aria-hidden="true"><path d="M7.2 1h13.6l-3.2 5.6H4z" fill="#2238f5"/><path d="M4.4 9.4H18l-3.2 5.6H1.2z" fill="#2238f5"/></svg></span><span class="wm">Site Bridge<sup>°</sup></span></a>
+          <p>Turn any website into an AI agent.</p>
+          <a class="lx-btn lx-btn-line" href="#contact" data-contact>Contact Us ↗</a>
+        </div>
+        <div><h4>Product</h4><a href="#how">How It Works</a><a href="#capabilities">Capabilities</a><a href="#plans">Plans</a><a href="#faq">FAQ</a></div>
+        <div><h4>Build</h4><a href="#start">New Scan</a><a href="#recent-wrap">Recent Sites</a><a href="#embed">Embed</a></div>
+        <div><h4>Standards</h4><a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">MCP</a><a href="https://llmstxt.org" target="_blank" rel="noopener">llms.txt</a></div>
+      </div>
+      <div class="lx-foot-line"><span>© Site Bridge. All rights reserved.</span><span>Turn any website into an AI agent.</span></div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="/auth.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="/pay.js"></script>
+  <script src="/app.js"></script>
+  <script src="/motion.js"></script>
+</body>
+</html>

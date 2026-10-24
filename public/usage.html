@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Site Bridge Usage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#0b0c10;--muted:#6b6f7b;--line:#ececf0;--blue:#2238f5;--bg:#f6f7fb}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Inter Tight",system-ui,sans-serif}
+    header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px clamp(16px,4vw,48px);background:#fff;border-bottom:1px solid var(--line)}
+    header b{font-weight:600}
+    main{padding:28px clamp(16px,4vw,48px) 60px;max-width:1300px}
+    h1{font-weight:400;font-size:28px;letter-spacing:-.02em;margin:0 0 4px}
+    .sub{color:var(--muted);margin:0 0 24px}
+    .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:28px}
+    .tile{background:#fff;border:1px solid var(--line);padding:16px 18px}
+    .tile .k{font-size:12px;color:var(--muted)}
+    .tile .v{font-size:32px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.2}
+    .tile.hero{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .tile.hero .k{color:#a9adb8}
+    h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:28px 0 10px}
+    .wrap{overflow-x:auto;background:#fff;border:1px solid var(--line)}
+    table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+    th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+    th{font-size:12px;color:var(--muted);font-weight:500}
+    td.n,th.n{text-align:right}
+    tr:last-child td{border-bottom:0}
+    .bar{display:inline-block;height:8px;background:var(--blue);vertical-align:middle;margin-left:8px;border-radius:2px}
+    form{display:flex;gap:8px;max-width:420px}
+    input{flex:1;height:38px;border:1px solid var(--line);padding:0 12px;font:inherit;background:#fff}
+    button{height:38px;padding:0 16px;border:0;background:var(--ink);color:#fff;font:500 12px/1 inherit;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+    .note{color:var(--muted);font-size:13px}
+    .err{color:#b91c1c}
+    button.rm{height:28px;padding:0 10px;background:#fff;color:#b91c1c;border:1px solid #f1c4c4;font-size:11px}
+    button.rm:hover{background:#b91c1c;color:#fff}
+    button.pv{height:28px;padding:0 10px;font-size:11px}
+  </style>
+</head>
+<body>
+  <header><b>Site Bridge · Usage</b><a class="note" href="/">Back to Site Bridge</a></header>
+  <main id="app">
+    <h1>How people are using Site Bridge</h1>
+    <p class="sub">Enter the admin key to see the numbers.</p>
+    <form id="login"><input id="key" type="password" placeholder="Admin key" autocomplete="current-password" aria-label="Admin key"><button>Open</button></form>
+    <p id="msg" class="note"></p>
+  </main>
+  <script>
+  (function () {
+    var KEY = 'sb:admin';
+    var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+    var fmt = function (n) { return Number(n || 0).toLocaleString('en-IN'); };
+    function load(key) {
+      fetch('/api/admin/usage', { headers: { 'x-admin-key': key } }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); }).then(function (res) {
+        if (!res.ok) { document.getElementById('msg').innerHTML = '<span class="err">' + esc(res.d.error || 'Could not load') + '</span>'; try { sessionStorage.removeItem(KEY); } catch (e) {} return; }
+        try { sessionStorage.setItem(KEY, key); } catch (e) {}
+        render(res.d);
+      });
+    }
+    function tile(k, v, hero) { return '<div class="tile' + (hero ? ' hero' : '') + '"><div class="k">' + k + '</div><div class="v">' + fmt(v) + '</div></div>'; }
+    function render(d) {
+      var app = document.getElementById('app');
+      if (!d.enabled) { app.innerHTML = '<h1>Usage tracking is not connected yet</h1><p class="sub">Connect the Supabase database to the Vercel project, then redeploy. Events start counting from then.</p>'; return; }
+      var t = d.totals, maxV = Math.max.apply(null, d.daily.map(function (r) { return r.visitors; }).concat([1]));
+      app.innerHTML = '<h1>How people are using Site Bridge</h1><p class="sub">Anonymous counts. Each browser counts as one visitor.</p>' +
+        '<div class="tiles">' + tile('Registered users', t.registered, true) + tile('New sign-ups, last 7 days', t.registered_7d) + tile('Signed in, last 24 hours', t.signed_in_24h) + tile('Active signed-in users, 7 days', t.active_users_7d) + tile('Visitors, all time', t.visitors_all, true) + tile('Visitors, last 24 hours', t.visitors_24h) + tile('Visitors, last 7 days', t.visitors_7d) +
+        tile('Sites scanned', t.scans) + tile('Live demos opened', t.demos) + tile('Chat messages', t.chats) + tile('Home page visits', t.visits) + tile('Scans that failed', t.scans_failed) + '</div>' +
+        (d.payments ? '<h2>UPI payments</h2><div class="tiles">' + tile('Revenue (₹)', d.payments.revenue, true) + tile('Payments', d.payments.payments) + tile('Paying users', d.payments.payers) + tile('Live demos opened', d.payments.demos_opened) + '</div>' +
+          '<div class="wrap"><table><tr><th>When</th><th>Email</th><th class="n">₹</th><th>UTR (check in your bank app)</th><th>Status</th><th></th></tr>' +
+          (d.payments.list.length ? d.payments.list.map(function (p) { return '<tr><td>' + esc(new Date(p.at).toLocaleString('en-IN')) + '</td><td>' + esc(p.email) + '</td><td class="n">' + fmt(p.amount) + '</td><td>' + esc(p.utr) + '</td><td>' + esc(p.status) + '</td><td>' +
+            (p.status !== 'verified' ? '<button class="pv" data-id="' + p.id + '" data-s="verified">Verified</button> ' : '') + (p.status !== 'rejected' ? '<button class="pv" data-id="' + p.id + '" data-s="rejected">Reject</button>' : '') + '</td></tr>'; }).join('') : '<tr><td colspan="6" class="note">No payments yet.</td></tr>') + '</table></div>' : '') +
+        '<h2>Registered users (' + fmt((d.users || []).length) + ')</h2><div class="wrap"><table><tr><th>Email</th><th>Signed up</th><th>Last sign-in</th><th class="n">Demos opened</th><th class="n">Paid (₹)</th><th></th></tr>' +
+        ((d.users || []).length ? d.users.map(function (u) { return '<tr><td>' + esc(u.email) + '</td><td>' + esc(new Date(u.created_at).toLocaleString('en-IN')) + '</td><td>' + (u.last_sign_in_at ? esc(new Date(u.last_sign_in_at).toLocaleString('en-IN')) : '–') + '</td><td class="n">' + fmt(u.demos) + '</td><td class="n">' + fmt(u.paid) + '</td><td><button class="rm" data-id="' + esc(u.id) + '" data-email="' + esc(u.email) + '">Remove</button></td></tr>'; }).join('') : '<tr><td colspan="6" class="note">No registered users yet.</td></tr>') + '</table></div>' +
+        '<h2>Support hand-offs to AgenticOrg</h2><div class="wrap"><table><tr><th>When</th><th>Site</th><th>Problem</th><th>Priority</th><th>Team</th><th>Contact</th></tr>' +
+        ((d.handoffs || []).length ? d.handoffs.map(function (h) { return '<tr><td>' + esc(new Date(h.at).toLocaleString('en-IN')) + '</td><td>' + esc(h.site_id) + '</td><td style="white-space:normal;min-width:260px">' + esc(h.issue) + '</td><td>' + esc(h.priority || '–') + '</td><td>' + esc(h.team || '–') + '</td><td>' + esc(h.contact || '–') + '</td></tr>'; }).join('') : '<tr><td colspan="6" class="note">No hand-offs yet.</td></tr>') + '</table></div>' +
+        '<h2>Last 14 days (India time)</h2><div class="wrap"><table><tr><th>Day</th><th class="n">Visitors</th><th class="n">Scans</th><th class="n">Demos</th><th class="n">Chats</th></tr>' +
+        (d.daily.length ? d.daily.map(function (r) { return '<tr><td>' + esc(r.day) + '</td><td class="n">' + fmt(r.visitors) + '<span class="bar" style="width:' + Math.round(80 * r.visitors / maxV) + 'px"></span></td><td class="n">' + fmt(r.scans) + '</td><td class="n">' + fmt(r.demos) + '</td><td class="n">' + fmt(r.chats) + '</td></tr>'; }).join('') : '<tr><td colspan="5" class="note">No activity yet.</td></tr>') + '</table></div>' +
+        '<h2>New sign-ups by day</h2><div class="wrap"><table><tr><th>Day</th><th class="n">Sign-ups</th></tr>' +
+        ((d.signups || []).length ? d.signups.map(function (r) { return '<tr><td>' + esc(r.day) + '</td><td class="n">' + fmt(r.signups) + '</td></tr>'; }).join('') : '<tr><td colspan="2" class="note">No sign-ups yet.</td></tr>') + '</table></div>' +
+        '<h2>Sites people used</h2><div class="wrap"><table><tr><th>Site</th><th class="n">Visitors</th><th class="n">Demos</th><th class="n">Chats</th><th>Last used</th></tr>' +
+        (d.sites.length ? d.sites.map(function (r) { return '<tr><td><a href="/sites/' + esc(r.site_id) + '">' + esc(r.site_id) + '</a></td><td class="n">' + fmt(r.visitors) + '</td><td class="n">' + fmt(r.demos) + '</td><td class="n">' + fmt(r.chats) + '</td><td>' + esc(new Date(r.last_used).toLocaleString('en-IN')) + '</td></tr>'; }).join('') : '<tr><td colspan="5" class="note">No activity yet.</td></tr>') + '</table></div>' +
+        '<h2>Visitors by country</h2><div class="wrap"><table><tr><th>Country</th><th class="n">Visitors</th></tr>' +
+        (d.countries.length ? d.countries.map(function (r) { return '<tr><td>' + esc(r.country) + '</td><td class="n">' + fmt(r.visitors) + '</td></tr>'; }).join('') : '<tr><td colspan="2" class="note">No activity yet.</td></tr>') + '</table></div>';
+    }
+    document.addEventListener('click', function (e) {
+      var rm = e.target.closest('button.rm');
+      if (rm) {
+        if (!confirm('Remove ' + rm.dataset.email + '? They are signed out and their account is deleted. Their payment records stay.')) return;
+        var k = ''; try { k = sessionStorage.getItem(KEY) || ''; } catch (x) {}
+        rm.disabled = true; rm.textContent = 'Removing…';
+        fetch('/api/admin/users/' + rm.dataset.id + '/remove', { method: 'POST', headers: { 'x-admin-key': k } }).then(function (r) { if (!r.ok) { alert('Could not remove this user.'); rm.disabled = false; rm.textContent = 'Remove'; return; } load(k); });
+        return;
+      }
+      var b = e.target.closest('button.pv'); if (!b) return;
+      var key = ''; try { key = sessionStorage.getItem(KEY) || ''; } catch (x) {}
+      b.disabled = true;
+      fetch('/api/admin/payments/' + b.dataset.id, { method: 'POST', headers: { 'content-type': 'application/json', 'x-admin-key': key }, body: JSON.stringify({ status: b.dataset.s }) }).then(function () { load(key); });
+    });
+    document.getElementById('login').addEventListener('submit', function (e) { e.preventDefault(); load(document.getElementById('key').value.trim()); });
+    var saved = null; try { saved = sessionStorage.getItem(KEY); } catch (e) {}
+    if (saved) load(saved);
+  })();
+  </script>
+</body>
+</html>

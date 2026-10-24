@@ -1,0 +1,53 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "express",
+  "rewrites": [
+    {
+      "source": "/__sb/preview/:id",
+      "destination": "/preview.html"
+    },
+    {
+      "source": "/",
+      "missing": [
+        {
+          "type": "host",
+          "value": "sitebridge-demo.vercel.app"
+        }
+      ],
+      "destination": "/index.html"
+    },
+    {
+      "source": "/sites/:id",
+      "missing": [
+        {
+          "type": "host",
+          "value": "sitebridge-demo.vercel.app"
+        }
+      ],
+      "destination": "/index.html"
+    },
+    {
+      "source": "/preview/:id",
+      "missing": [
+        {
+          "type": "host",
+          "value": "sitebridge-demo.vercel.app"
+        }
+      ],
+      "destination": "/preview.html"
+    },
+    {
+      "source": "/usage",
+      "missing": [
+        {
+          "type": "host",
+          "value": "sitebridge-demo.vercel.app"
+        }
+      ],
+      "destination": "/usage.html"
+    }
+  ],
+  "regions": [
+    "bom1"
+  ]
+}

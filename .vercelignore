@@ -1,0 +1,17 @@
+# Never upload secrets, local state or installed packages
+.env
+node_modules
+.impeccable
+data/*
+!data/sites
+data/sites/*
+!data/sites/htmx-org-417c.json
+!data/sites/flipkart-com-7b86.json
+!data/sites/rockpaperscissors-studio-fe00.json
+!data/sites/proteantech-in-4351.json
+!data/sites/finfinity-co-in-ea87.json
+!data/sites/basecamp-com-c7a7.json
+!data/sites/aubergine-co-2ba8.json
+!data/sites/dell-com-bba9.json
+.env.local
+.vercel
